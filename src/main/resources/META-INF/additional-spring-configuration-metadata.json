@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "jpa",
+      "type": "java.lang.String",
+      "description": "Description for jpa."
+  }
+] }
