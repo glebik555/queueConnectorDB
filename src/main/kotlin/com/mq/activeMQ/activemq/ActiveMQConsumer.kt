@@ -21,21 +21,21 @@ class ActiveMQConsumer(
     fun processPersons(personDtoList: String) {
 
         val serializer: Serializer = Persister()
-        val example: PersonsDto = serializer.read(PersonsDto::class.java, personDtoList)
-        for (i in example.person) {
+        val newPersonsDto: PersonsDto = serializer.read(PersonsDto::class.java, personDtoList)
+        for (i in newPersonsDto.person) {
             println(i.name + " " + i.lastname)
         }
         var flag: Boolean = true
-        for (index in 0 until example.person.size) {
+        for (index in 0 until newPersonsDto.person.size) {
 
             for (j in personService.getAllPerson()) {
-                if (example.person[index].name == j.name && example.person[index].lastname == j.lastname) {
+                if (newPersonsDto.person[index].name == j.name && newPersonsDto.person[index].lastname == j.lastname) {
                     flag = false
-                    println("ignoring person: ${example.person[index].name} ${example.person[index].lastname}")
+                    println("ignoring person: ${newPersonsDto.person[index].name} ${newPersonsDto.person[index].lastname}")
                 }
             }
             if (flag) {
-                personService.create(example.person[index])
+                personService.create(newPersonsDto.person[index])
             }
             flag = true
         }
